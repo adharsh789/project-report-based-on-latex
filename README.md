@@ -1,4 +1,4 @@
-# project-report-based-on-latex
+
 # Research Paper in LaTeX
 
 ## Table of Contents
