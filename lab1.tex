@@ -1,0 +1,112 @@
+\documentclass[journal]{IEEEtran}
+
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{algorithmic}
+\usepackage{array}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage{caption}
+\usepackage{booktabs}
+
+\begin{document}
+	
+	\title{Development of Steady-State Voltage Control Techniques Applied to Microgrids}
+	\author{Junior N. N. Da Costa, João A. Passos Filho,\IEEEmembership{Senior Member,~IEEE}, and Wesley Peres,\IEEEmembership{Senior Member,~IEEE}
+		\thanks{Manuscript received April 20, 2024; accepted May 30, 2024. Date of publication June 6, 2024; date of current version June 20, 2024.}
+		\thanks{This work was supported in part by the State of Minas Gerais Research Foundation (FAPEMIG), in part by the National Research Council (CNPq), in part by Brazilian Federal Agency for Support and Evaluation of Graduate Education (CAPES), and in part by the National Institute of Science and Technology in Electric Energy (INERGE).}
+		\thanks{J. N. N. Da Costa and J. A. Passos Filho are with the Department of Electrical Energy, Federal University of Juiz de Fora (UFJF), Juiz de Fora 36036-900, Brazil (e-mail: joao.passos@ufjf.br).}
+		\thanks{W. Peres is with the Department of Electrical Engineering, Federal University of São João del-Rei (UFSJ), São João del Rei 36307-352, Brazil.}
+		\thanks{Digital Object Identifier 10.1109/ACCESS.2024.3410955}
+	}
+	
+	\markboth{IEEE Access,~Vol.~12, 2024}%
+	{Da Costa \MakeLowercase{\textit{et al.}}: Development of Steady-State Voltage Control Techniques Applied to Microgrids}
+	
+	\IEEEpubid{0000--0000/00\$00.00~\copyright~2024 IEEE}
+	
+	\IEEEpubidadjcol
+	
+	\maketitle
+	
+	\begin{abstract}
+		This paper presents two new steady-state voltage control methodologies for microgrids. The main idea is to use the power factor angle of photovoltaic (PV) inverters to develop two control schemes, a primary one for local voltage control at the interconnection point and a secondary one for voltage control through the coordinated adjustment of several PV generation units. Mathematically, the proposal is based on a set of non-linear equations that represent the equations of the grid, the PV system model, and the proposed control schemes. These equations form a generalized and expanded power flow problem, which can be solved efficiently by the traditional Newton-Raphson method. Complementarity conditions and sigmoid functions are used to treat the inverter limits, carried out automatically and simultaneously with the problem’s solution. Computational simulations carried out on a small-scale tutorial system and the IEEE 38-bus system demonstrate the effectiveness of the methodologies. In addition, the performance of the secondary control scheme was evaluated under different load, irradiance, and temperature conditions, considering a time horizon of 7 days (168 hours). The results indicate that the developed control has great potential to improve the voltage profile of microgrids.
+	\end{abstract}
+	
+	\begin{IEEEkeywords}
+		Microgrid control, photovoltaic generation systems, primary voltage control, secondary voltage control.
+	\end{IEEEkeywords}
+	
+	\section{Introduction}
+	\IEEEPARstart{E}{lectrical} Power Systems (EPS) are traditionally based on transmission networks that interconnect consumer units connected to the distribution system to large generating units, typically hydroelectric, nuclear, and thermoelectric, essentially powered by fossil fuels and their derivatives. This centralized production arrangement, combined with society’s growing demand for electrical energy, requires a high degree of complexity in the planning and operation of these systems, carried out according to the premises of continuity, quality, safety, and economy.\cite{xyz} 
+	  \cite{DL}
+	
+	In recent years, the advent of power electronics has provided energy development based heavily on Distributed Generation (DG) of energy, enabling small-scale generation close to consumer units. In this way, DG represents a decentralization of the generation system, allowing consumers to produce their energy locally. Together with Energy Storage Systems (ESS) and electric vehicles and their recharging structures, DGs make up Distributed Energy Resources (DER), which is responsible for allowing greater consumer participation in generating and managing their energy consumption.
+	
+	In fact, in recent years, power systems have experienced a strong integration of DERs, justified mainly by the depletion of fossil fuels and environmental concerns, in addition to the reduction in investment costs linked to disseminating these new technologies. This integration has made electrical grids more distributed, flexible, and intelligent. However, many challenges still need to be overcome to guarantee...
+	
+	% Section for Methodology
+	\section{Methodology}
+	The proposed methodologies leverage the power factor angle of photovoltaic (PV) inverters for voltage control. The control schemes involve both primary and secondary control levels, addressing local voltage at interconnection points and coordinated voltage control among multiple PV units.
+	
+	\subsection{Primary Voltage Control}
+	Primary voltage control focuses on local voltage regulation at the point of interconnection (PoI) using PV inverters. This is achieved by adjusting the power factor angle based on real-time voltage measurements.
+	
+	\subsection{Secondary Voltage Control}
+	Secondary voltage control involves the coordinated adjustment of multiple PV inverters to achieve a stable voltage profile across the microgrid. This method utilizes a centralized control algorithm that considers the grid's state and the operational limits of inverters.
+	
+	\section{Mathematical Formulation}
+	The control strategies are formulated as a set of non-linear equations representing the grid's power flow, PV system models, and control schemes. The equations are integrated into an expanded power flow problem solved using the Newton-Raphson method.
+	
+	\subsection{Power Flow Equations}
+	The power flow in a PV system is represented by the following equations:
+	
+	\begin{equation}
+		\begin{aligned}
+			P_{gpv} &= V^2_k g + V_k V_{poi} \left[ -g \cos(\alpha - \theta_{poi}) - b \sin(\alpha - \theta_{poi}) \right], \\
+			Q_{gpv} &= -V^2_k b + V_k V_{poi} \left[ -g \sin(\alpha - \theta_{poi}) + b \cos(\alpha - \theta_{poi}) \right],
+		\end{aligned}
+	\end{equation}
+	
+	where \(P_{gpv}\) and \(Q_{gpv}\) are the active and reactive power generated by the PV system, \(V_k\) and \(V_{poi}\) are the voltages at the PV system and point of interconnection, \(g\) and \(b\) are the conductance and susceptance of the coupling transformer, and \(\alpha\) and \(\theta_{poi}\) are the phase angles.
+	
+	\subsection{Inverter Control}
+	The inverter's output voltage is given by:
+	
+	\begin{equation}
+		\dot{V}k = \frac{\sqrt{3}}{8} m V{pv} \cdot \alpha,
+	\end{equation}
+	
+	where \(m\) is the PWM modulation index, and \(V_{pv}\) is the PV system voltage.
+	
+	\section{Results}
+	Computational simulations were conducted on a small-scale tutorial system and the IEEE 38-bus system to validate the proposed methodologies. The results demonstrate significant improvements in voltage profiles and system stability.
+	
+	\subsection{Simulation Setup}
+	The simulations were performed under various load, irradiance, and temperature conditions over a 7-day period (168 hours).
+	
+	\subsection{Performance Analysis}
+	The performance of the secondary control scheme was evaluated, indicating a high potential for enhancing microgrid voltage stability.
+	
+	
+	\begin{figure}[!t]
+		\centering
+		\includegraphics[width=\linewidth]{example2.jpg}
+		\caption{Voltage profile improvement with proposed control techniques.}
+		\label{fig:voltage_profile}
+	\end{figure}
+	
+	\section{Conclusion}
+	The developed steady-state voltage control techniques for microgrids using PV inverters show promising results in improving voltage profiles and system stability. Future work will focus on real-world implementations and further optimization of the control algorithms.
+	
+	\section*{Acknowledgments}
+	The authors would like to thank the State of Minas Gerais Research Foundation (FAPEMIG), the National Research Council (CNPq), the Brazilian Federal Agency for Support and Evaluation of Graduate Education (CAPES), and the National Institute of Science and Technology in Electric Energy (INERGE) for their support.
+	\cite{xyz}
+	\bibliographystyle{plain}  
+	\bibliography{document.bib}
+    
+
+\end{document}
